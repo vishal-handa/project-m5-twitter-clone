@@ -10,7 +10,9 @@ const Sidebar=()=>{
     return(
         <Wrapper>
             <GlobalStyles />
-            <Image src={Logo} />
+            <ImgLink exact to="/">
+                <Image src={Logo} />
+            </ImgLink>
             <NewLink exact to="/">
                 <FiHome style={{marginRight:"20px"}}/>
                 Home
@@ -38,8 +40,8 @@ const Wrapper=styled.div`
 `;
 
 const Image=styled.img`
-    height: 75px;
-    width: 60px;
+    height: 65px;
+    width: 50px;
 `;
 
 const Button=styled.button`
@@ -52,6 +54,9 @@ const Button=styled.button`
     border:none;
     &:hover{
         cursor:pointer;
+        border:2px solid ${COLORS.primary};
+        color:${COLORS.primary};
+        background:white;
     }
 `;
 
@@ -67,13 +72,18 @@ const NewLink=styled(Link)`
         color:${COLORS.primary};
     }
     &.active{
-        background:${COLORS.primary};
-        color:white;
+        color:${COLORS.primary};
     }
 `;
 
-const Div=styled.div`
-    display:flex;
+const ImgLink=styled(Link)`
+    height: 75px;
+    width: 60px;
+    padding:2px;
+    &:hover{
+        border-radius:50%;
+        background:${COLORS.hovering}
+    }
 `;
 
 export default Sidebar;
