@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Link,
@@ -16,6 +16,9 @@ import Tweetdetails from "./components/TweetDetails";
 import Sidebar from "./components/Sidebar"
 
 const App=()=>{
+  useEffect(()=>{
+    document.title="Critter || Meow away!";
+  },[])
   return(
     <Section>
       <Router>
@@ -35,6 +38,8 @@ const App=()=>{
 const Section=styled.section`
   margin-left:13%;
   margin-right:13%;
+  display:flex;
+  flex-direction:row;
 `;
 
 
