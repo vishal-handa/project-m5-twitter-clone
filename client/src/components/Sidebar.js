@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components';
 import GlobalStyles from "./Globalstyles";
 import Logo from "./assets/logo.svg";
 import COLORS from "./constants";
 import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Sidebar=()=>{
+    const {user}=useParams();
+    const { currentUser } = React.useContext(CurrentUserContext);
+    //console.log(currentUser);
     return(
         <Wrapper>
             <GlobalStyles />
@@ -17,7 +21,7 @@ const Sidebar=()=>{
                 <FiHome style={{marginRight:"20px"}}/>
                 Home
             </NewLink>
-            <NewLink to="/:profileId">
+            <NewLink to={currentUser ? `/profile/${currentUser.profile.handle}` : `/profile/${user}`}>
                 <FiUser style={{marginRight:"20px"}}/>
                 Profile
             </NewLink>

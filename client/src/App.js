@@ -8,14 +8,16 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Home from "./components/Home";
+import Homefeed from "./components/Homefeed";
 import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 import Bookmarks from "./components/Bookmarks";
 import Tweetdetails from "./components/TweetDetails";
-import Sidebar from "./components/Sidebar"
+import Sidebar from "./components/Sidebar";
+import { CurrentUserContext } from "./components/CurrentUserContext";
 
 const App=()=>{
+  const { homefeed }=React.useContext(CurrentUserContext);
   useEffect(()=>{
     document.title="Critter || Meow away!";
   },[])
@@ -24,11 +26,11 @@ const App=()=>{
       <Router>
         <Sidebar />
         <Switch>
-          <Route exact path="/"><Home /></Route>
+          <Route exact path="/"><Homefeed homefeed={homefeed}/></Route>
           <Route exact path="/notifications"><Notifications /></Route>
           <Route exact path="/Bookmarks"><Bookmarks /></Route>
           <Route exact path="/tweet/:tweedId"><Tweetdetails /></Route>
-          <Route exact path="/:profileId"><Profile /></Route>
+          <Route exact path="/profile/:profileId"><Profile /></Route>
         </Switch>
       </Router>
     </Section>
