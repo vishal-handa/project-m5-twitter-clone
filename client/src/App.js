@@ -14,20 +14,19 @@ import Notifications from "./components/Notifications";
 import Bookmarks from "./components/Bookmarks";
 import Tweetdetails from "./components/TweetDetails";
 import Sidebar from "./components/Sidebar";
-import { CurrentUserContext } from "./components/CurrentUserContext";
+import Bigtweet from "./components/Bigtweet";
+
 
 const App=()=>{
-  const { currentUser, homefeed }=React.useContext(CurrentUserContext);
   useEffect(()=>{
     document.title="Critter || Meow away!";
   },[])
-  console.log(currentUser);
   return(
     <Section>
       <Router>
         <Sidebar />
         <Switch>
-          <Route exact path="/"><Homefeed homefeed={homefeed} currentUser={currentUser}/></Route>
+          <Route exact path="/"><Homefeed/></Route>
           <Route exact path="/notifications"><Notifications /></Route>
           <Route exact path="/Bookmarks"><Bookmarks /></Route>
           <Route exact path="/tweet/:tweedId"><Tweetdetails /></Route>
