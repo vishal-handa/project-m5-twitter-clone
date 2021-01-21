@@ -17,16 +17,17 @@ import Sidebar from "./components/Sidebar";
 import { CurrentUserContext } from "./components/CurrentUserContext";
 
 const App=()=>{
-  const { homefeed }=React.useContext(CurrentUserContext);
+  const { currentUser, homefeed }=React.useContext(CurrentUserContext);
   useEffect(()=>{
     document.title="Critter || Meow away!";
   },[])
+  console.log(currentUser);
   return(
     <Section>
       <Router>
         <Sidebar />
         <Switch>
-          <Route exact path="/"><Homefeed homefeed={homefeed}/></Route>
+          <Route exact path="/"><Homefeed homefeed={homefeed} currentUser={currentUser}/></Route>
           <Route exact path="/notifications"><Notifications /></Route>
           <Route exact path="/Bookmarks"><Bookmarks /></Route>
           <Route exact path="/tweet/:tweedId"><Tweetdetails /></Route>
@@ -38,8 +39,8 @@ const App=()=>{
 }
 
 const Section=styled.section`
-  margin-left:13%;
-  margin-right:13%;
+  margin-left:8%;
+  margin-right:8%;
   display:flex;
   flex-direction:row;
 `;

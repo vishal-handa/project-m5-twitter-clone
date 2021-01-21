@@ -41,6 +41,7 @@ const Sidebar=()=>{
 const Wrapper=styled.div`
     display:flex;
     flex-direction:column;
+    margin-right:20px;
 `;
 
 const Image=styled.img`
