@@ -1,10 +1,10 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import GlobalStyles from './Globalstyles';
-import { FaRegComment, FaRetweet, FaRegHeart } from "react-icons/fa";
-import { FiUpload } from "react-icons/fi";
-import COLORS from "./constants";
+import { FaRetweet} from "react-icons/fa";
 import { format } from "date-fns";
+import TweetActions from "./TweetActions";
 
 const Tweetfeed=({
     tweetid,
@@ -17,35 +17,37 @@ const Tweetfeed=({
     avatar,
     retweetHandle
 })=>{
+    let history = useHistory();
     const newTime = format(new Date(timestamp), "LLL do");
-    const handleclick=(ev)=>{
-        let clickedID=ev.target.id;
-        console.group(clickedID);
+
+    const handleclick=()=>{
+        history.push(`/tweet/${tweetid}`);
     }
     return(
         <Wrapper>
             <Retweet>
                 { (retweetHandle) && <p> <FaRetweet/> by {retweetHandle}</p>}
             </Retweet>
-                <Section  id={tweetid} onClick={handleclick}>
-                    <TweetBody>
-                        <Img src={avatar}/>
+            <Section>
+                <TweetBody  onClick={()=>handleclick()}>
+                    <Img src={avatar}/>
+                    <div>
                         <div>
-                            <div>
-                                <DisplayName>
-                                    {displayName}
-                                </DisplayName>
-                                <Handle> 
-                                    {" "}@{authorHandle}
-                                </Handle>
-                                <span> - {newTime}</span>
-                            </div>
-                            <Tweet>{status}</Tweet>
-                            <img src={media}/>
-                            <Icons><FaRegComment/><FaRetweet/><FaRegHeart/><FiUpload/></Icons>
+                            <DisplayName>
+                                {displayName}
+                            </DisplayName>
+                            <Handle> 
+                                {" "}@{authorHandle}
+                            </Handle>
+                            <span> - {newTime}</span>
                         </div>
-                    </TweetBody>
-                </Section>
+                        <Tweet>{status}</Tweet>
+                        <Media src={media} alt="Media"/>
+                        
+                    </div>
+                </TweetBody>
+                <TweetActions />
+            </Section>
         </Wrapper>
     )
 };
@@ -54,20 +56,20 @@ const Wrapper=styled.div`
     display:block;
 `;
 
-const Retweet=styled.p`
+const Retweet=styled.div`
+margin-top:10px;
 margin-left:30px;
     &>p{
         color:gray;
         font-size:12px;
-        margin-block-start: 0;
+        margin-block-start: 0em;
         margin-block-end: 0em;
     }
 `;
 
 const Section=styled.div`
-    display:flex;
-    justify-content:flex-start;
     border-bottom:1px solid #cdd0d4;
+    padding:10px;
 `;
 
 
@@ -75,6 +77,10 @@ const TweetBody=styled.div`
     display:flex;
     justify-content:flex-start;
     padding:0px 12px 12px 12px;
+    &:hover{
+        cursor:pointer;
+    }
+    
 `;
 
 const Img=styled.img`
@@ -82,6 +88,13 @@ const Img=styled.img`
     width:40px;
     border-radius:50%;
     margin-right:10px;
+`;
+
+const Media=styled.img`
+    border-radius:4%;
+    height:75%;
+    width:60%;
+    padding:10px 10px 10px 0px;
 `;
 
 const DisplayName=styled.span`
@@ -100,10 +113,5 @@ const Tweet=styled.p`
 
 `;
 
-const Icons=styled.div`
-    display:flex;
-    justify-content:space-between;
-    width:100%;
-`;
 
 export default Tweetfeed;

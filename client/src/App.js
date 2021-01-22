@@ -14,7 +14,6 @@ import Notifications from "./components/Notifications";
 import Bookmarks from "./components/Bookmarks";
 import Tweetdetails from "./components/TweetDetails";
 import Sidebar from "./components/Sidebar";
-import Bigtweet from "./components/Bigtweet";
 
 
 const App=()=>{
@@ -27,10 +26,10 @@ const App=()=>{
         <Sidebar />
         <Switch>
           <Route exact path="/"><Homefeed/></Route>
-          <Route exact path="/notifications"><Notifications /></Route>
-          <Route exact path="/Bookmarks"><Bookmarks /></Route>
-          <Route exact path="/tweet/:tweedId"><Tweetdetails /></Route>
-          <Route exact path="/profile/:profileId"><Profile /></Route>
+          <Route  path="/notifications"><Notifications /></Route>
+          <Route  path="/Bookmarks"><Bookmarks /></Route>
+          <Route  path="/tweet/:tweetId"><Tweetdetails /></Route>
+          <Route  path="/profile/:profileId"><Profile /></Route>
         </Switch>
       </Router>
     </Section>
@@ -38,8 +37,8 @@ const App=()=>{
 }
 
 const Section=styled.section`
-  margin-left:8%;
-  margin-right:8%;
+  margin-left:4%;
+  margin-right:4%;
   display:flex;
   flex-direction:row;
 `;

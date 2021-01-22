@@ -7,19 +7,18 @@ import { CurrentUserContext } from "./CurrentUserContext";
 
 const Homefeed=()=>{
     const { currentUser, homefeed }=React.useContext(CurrentUserContext);
-    console.log(currentUser);
 
     return(
         <Main>
             { currentUser && <Header>
-                <Img src={currentUser.profile.avatarSrc}/>
                 <Form>
-                    <Input placeholder="What's on your mind?"/>
+                    <div>
+                        <Img src={currentUser.profile.avatarSrc}/>
+                        <Input placeholder="What's on your mind?"/>
+                    </div>
                     <Button>Meow</Button>
                 </Form>
             </Header>}
-            
-            
             <Bar/>
             {homefeed ? <div>{homefeed.tweetIds.map(id=>{
                 const tweets=homefeed.tweetsById[id];
@@ -30,7 +29,7 @@ const Homefeed=()=>{
                         authorHandle={tweets.author.handle}
                         status={tweets.status}
                         mediaObject={tweets.media}
-                        // media={(tweets.media.length>0) ? tweets.media[0].url : ""}
+                        media={(tweets.media.length>0) ? tweets.media[0].url : ""}
                         timestamp={tweets.timestamp}
                         avatar={tweets.author.avatarSrc}
                         retweetHandle={(tweets.retweetFrom) ? tweets.retweetFrom.handle : null}
@@ -54,6 +53,8 @@ const Bar=styled.div`
 `;
 
 const Img=styled.img`
+    vertical-align: top;
+    padding:5px;
     height:40px;
     width:40px;
     border-radius:50%;
@@ -63,13 +64,13 @@ const Header=styled.div`
     display:flex;
 `;
 const Form=styled.form`
-    display:grid;
     width:100%;
     float:right;
 `;
 
 const Input=styled.textarea`
-    height: 100px;
+    width:93%;
+    height:100px;
     border:none;
     resize:none;
     &.active{
