@@ -14,10 +14,10 @@ const Sidebar=()=>{
     return(
         <Wrapper>
             <GlobalStyles />
-            <ImgLink exact to="/">
+            <ImgLink to="/">
                 <Image src={Logo} />
             </ImgLink>
-            <NewLink exact to="/">
+            <NewLink to="/">
                 <FiHome style={{marginRight:"20px"}}/>
                 Home
             </NewLink>

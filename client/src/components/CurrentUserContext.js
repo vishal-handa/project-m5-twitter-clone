@@ -12,11 +12,11 @@ export const CurrentUserProvider = ({ children }) => {
     // When the data is received, update currentUser.
     // Also, set `status` to `idle`
 
-    useEffect(()=>{
+    const fetchHomeFeed = async () =>{
         fetch("/api/me/home-feed")
         .then(res=>res.json())
         .then(res=>  setHomefeed(res))
-
+    
         fetch("api/me/profile",{
             method:"GET",
         })
@@ -25,16 +25,18 @@ export const CurrentUserProvider = ({ children }) => {
                 setCurrentUser(res);
                 setStatus("idle");
             })
-    },[])
-
-
-
+    }
+    
+    useEffect(()=>{
+        fetchHomeFeed();
+    },[]);
 
     return (
         <CurrentUserContext.Provider value={{ 
             currentUser, 
             status, 
             homefeed, 
+            fetchHomeFeed,
         }}>
             {children}
         </CurrentUserContext.Provider>

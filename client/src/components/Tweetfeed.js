@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import GlobalStyles from './Globalstyles';
 import { FaRetweet} from "react-icons/fa";
@@ -29,21 +29,22 @@ const Tweetfeed=({
                 { (retweetHandle) && <p> <FaRetweet/> by {retweetHandle}</p>}
             </Retweet>
             <Section>
-                <TweetBody  onClick={()=>handleclick()}>
+                <TweetBody>
                     <Img src={avatar}/>
                     <div>
-                        <div>
+                        <StyledLink  to={`/profile/${authorHandle}`}>
                             <DisplayName>
                                 {displayName}
                             </DisplayName>
-                            <Handle> 
+                        </StyledLink>
+                        <Handle> 
                                 {" "}@{authorHandle}
                             </Handle>
-                            <span> - {newTime}</span>
+                        <span> - {newTime}</span>
+                        <div  onClick={()=>handleclick()}>
+                            <Tweet>{status}</Tweet>
+                            {media && <Media src={media} alt="Media"/>}
                         </div>
-                        <Tweet>{status}</Tweet>
-                        <Media src={media} alt="Media"/>
-                        
                     </div>
                 </TweetBody>
                 <TweetActions />
@@ -81,6 +82,14 @@ const TweetBody=styled.div`
         cursor:pointer;
     }
     
+`;
+
+const StyledLink=styled(Link)`
+    text-decoration:none;
+    color:black;
+    &:hover{
+        text-decoration:underline;
+    }
 `;
 
 const Img=styled.img`
