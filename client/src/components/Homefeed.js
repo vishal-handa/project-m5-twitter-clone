@@ -9,7 +9,7 @@ import { CurrentUserContext } from "./CurrentUserContext";
 const Homefeed=()=>{
     const [value, setValue]=useState("");
     const { currentUser, homefeed, fetchHomeFeed }=React.useContext(CurrentUserContext);
-    const maxCharacterLength=140;
+    const maxCharacterLength=10;
 
 
     const handleSubmit=(ev)=>{
@@ -24,6 +24,7 @@ const Homefeed=()=>{
     }
 
     let charlength=maxCharacterLength-value.length;
+    //console.log(homefeed);
 
     return(
         <Main>
@@ -38,7 +39,7 @@ const Homefeed=()=>{
                     </div>
                     <MiniContainer>
                         <CharCount style={{color: charlength>=0? "black" : "red"}}>{charlength}</CharCount>
-                        <Button>Meow</Button>
+                        <Button disabled={charlength<0 || value.length===0}>Meow</Button>
                     </MiniContainer>
                 </Form>
             </Header>}
@@ -60,6 +61,10 @@ const Homefeed=()=>{
                         timestamp={tweets.timestamp}
                         avatar={tweets.author.avatarSrc}
                         retweetHandle={(tweets.retweetFrom) ? tweets.retweetFrom.handle : null}
+                        isLiked={tweets.isLiked}
+                        isRetweeted={tweets.isRetweeted}
+                        numLikes={tweets.numLikes}
+                        numRetweets={tweets.numRetweets}
                     />
                 )
             })}</div> : "Loading"}

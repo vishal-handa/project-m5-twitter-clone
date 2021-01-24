@@ -4,7 +4,16 @@ import GlobalStyles from './Globalstyles';
 import { FaRegComment, FaRetweet, FaRegHeart } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 
-const TweetActions=()=>{
+const TweetActions=(
+    tweetLiked,
+    setTweetLiked,
+    numOfLikes,
+    setNumOfLikes,
+    tweetRetweeted,
+    setTweetRetweeted,
+    numOfRetweets,
+    setNumOfRetweets,
+    tweetid)=>{
     return(
         <>
             <Icons><FaRegComment /><FaRetweet/><FaRegHeart/><FiUpload/></Icons>

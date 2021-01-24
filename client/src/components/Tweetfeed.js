@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import GlobalStyles from './Globalstyles';
@@ -15,8 +15,16 @@ const Tweetfeed=({
     media,
     timestamp,
     avatar,
-    retweetHandle
+    retweetHandle,
+    isLiked,
+    isRetweeted,
+    numLikes,
+    numRetweets,
 })=>{
+    const [tweetLiked, setTweetLiked]=useState(isLiked);
+    const [numOfLikes, setNumOfLikes]=useState(numLikes);
+    const [tweetRetweeted, setTweetRetweeted]=useState(isRetweeted);
+    const [numOfRetweets, setNumOfRetweets]=useState(numRetweets)
     let history = useHistory();
     const newTime = format(new Date(timestamp), "LLL do");
 
@@ -47,7 +55,16 @@ const Tweetfeed=({
                         </div>
                     </div>
                 </TweetBody>
-                <TweetActions />
+                <TweetActions   tweetLiked={tweetLiked}
+                                setTweetLiked={setTweetLiked}
+                                numOfLikes={numOfLikes}
+                                setNumOfLikes={setNumOfLikes}
+                                tweetRetweeted={tweetRetweeted}
+                                setTweetRetweeted={setTweetRetweeted}
+                                numOfRetweets={numOfRetweets}
+                                setNumOfRetweets={setNumOfRetweets}
+                                tweetid={tweetid}
+                />
             </Section>
         </Wrapper>
     )
