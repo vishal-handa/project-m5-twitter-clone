@@ -21,12 +21,9 @@ const Tweetfeed=({
     numLikes,
     numRetweets,
 })=>{
-    const [tweetLiked, setTweetLiked]=useState(isLiked);
-    const [numOfLikes, setNumOfLikes]=useState(numLikes);
-    const [tweetRetweeted, setTweetRetweeted]=useState(isRetweeted);
-    const [numOfRetweets, setNumOfRetweets]=useState(numRetweets)
     let history = useHistory();
     const newTime = format(new Date(timestamp), "LLL do");
+
 
     const handleclick=()=>{
         history.push(`/tweet/${tweetid}`);
@@ -55,14 +52,10 @@ const Tweetfeed=({
                         </div>
                     </div>
                 </TweetBody>
-                <TweetActions   tweetLiked={tweetLiked}
-                                setTweetLiked={setTweetLiked}
-                                numOfLikes={numOfLikes}
-                                setNumOfLikes={setNumOfLikes}
-                                tweetRetweeted={tweetRetweeted}
-                                setTweetRetweeted={setTweetRetweeted}
-                                numOfRetweets={numOfRetweets}
-                                setNumOfRetweets={setNumOfRetweets}
+                <TweetActions   isLiked={isLiked}
+                                isRetweeted={isRetweeted}
+                                numLikes={numLikes}
+                                numRetweets={numRetweets}
                                 tweetid={tweetid}
                 />
             </Section>
