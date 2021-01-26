@@ -1,7 +1,8 @@
 import React,{ useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from "react-router-dom";
-
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorPage from "./ErrorPage";
 import { FaRetweet} from "react-icons/fa";
 import TweetActions from './TweetActions';
 import { format } from "date-fns";
@@ -9,16 +10,20 @@ import { format } from "date-fns";
 const Tweetdetails=()=>{
     const { tweetId } = useParams();
     const [bigTweet, setBigTweet] = useState(null);
+    const [error, setError]=useState(false);
     //console.log("tweet id", tweetId);
 
     useEffect(()=>{
         fetch(`/api/tweet/${tweetId}`)
         .then(res=>res.json())
-        .then(res=>setBigTweet(res));
+        .then(res=>setBigTweet(res))
+        .catch(err=>setError(true))
     },[tweetId]);
 
 
     return(
+        <>
+        {bigTweet ? 
         <Wrapper>
             {bigTweet && 
             <div>
@@ -39,7 +44,7 @@ const Tweetdetails=()=>{
                             </div>
                             <Tweet>{bigTweet.tweet.status}</Tweet>
                             {(bigTweet.tweet.media[0]) && <Media src={bigTweet.tweet.media[0].url} alt="Media"/>}
-                            <span> {format(new Date(bigTweet.tweet.timestamp), "hh:mm a '-' LLL do yyyy")}</span>
+                            <p> {format(new Date(bigTweet.tweet.timestamp), "hh:mm a '-' LLL do yyyy")}</p>
                         </div>
                         
                     </TweetBody>
@@ -49,6 +54,10 @@ const Tweetdetails=()=>{
             
         }
         </Wrapper>
+        : error 
+        ? <ErrorPage/> 
+        : <LoadingSpinner />}
+        </>
     )
 }
 

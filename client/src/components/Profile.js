@@ -4,24 +4,31 @@ import { useParams } from "react-router-dom";
 import UserBanner from './UserBanner';
 import ProfileActions from "./ProfileActions";
 import Tweetfeed from './Tweetfeed';
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorPage from "./ErrorPage";
 
 const Profile=()=>{
     const { profileId }=useParams();
     const [userProfile, setUserProfile]=useState(null);
     const [userTweets, setUserTweets]=useState(null);
+    const [error, setError]=useState(false);
     console.log(userTweets);
     useEffect(()=>{
         fetch(`/api/${profileId}/profile`)
         .then(res=>res.json())
         .then(res=>setUserProfile(res))
+        .catch(err=>setError(true))
 
         fetch(`/api/${profileId}/feed`)
         .then(res=>res.json())
         .then(res=>setUserTweets(res))
+        .catch(err=>setError(true))
     },[])
     // console.log("user profile", userProfile);
     // console.log("user tweets", userTweets)
     return(
+        <>
+        {userProfile ? 
         <Wrapper>
             {userProfile && <UserBanner userProfile={userProfile}/>}
             <ProfileActions />
@@ -53,7 +60,11 @@ const Profile=()=>{
                     }
                 })}
             </div> : "Loading"}
-        </Wrapper>
+        </Wrapper> 
+        : error 
+        ? <ErrorPage/> 
+        : <LoadingSpinner /> }
+        </>
     )
 };
 

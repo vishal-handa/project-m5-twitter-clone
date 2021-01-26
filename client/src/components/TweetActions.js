@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import GlobalStyles from './Globalstyles';
 import { FaRegComment, FaRetweet, FaRegHeart } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
+import COLORS from "./constants";
 
 const TweetActions=({isLiked,
     isRetweeted,
@@ -63,7 +64,7 @@ const TweetActions=({isLiked,
                 </Button>
                 
                 <Button onClick={handleRetweet}>
-                    <FaRetweet/>
+                    <FaRetweet fill={isLiked ? "red" : ""} />
                     {numOfRetweets>0 ? <span>{"   "}{numOfRetweets}</span> : <span>{" "}</span>}
                 </Button>
                 

@@ -4,11 +4,15 @@ import GlobalStyles from './Globalstyles';
 import COLORS from "./constants";
 import Tweetfeed from "./Tweetfeed";
 import { CurrentUserContext } from "./CurrentUserContext";
+import LoadingSpinner from "./LoadingSpinner";
+import ErrorPage from "./ErrorPage";
 
 
 const Homefeed=()=>{
     const [value, setValue]=useState("");
-    const { currentUser, homefeed, fetchHomeFeed }=React.useContext(CurrentUserContext);
+    const [error, setError]=useState(false);
+    const { currentUser, homefeed, fetchHomeFeed, status }=React.useContext(CurrentUserContext);
+    console.log(status);
     const maxCharacterLength=10;
 
 
@@ -21,13 +25,15 @@ const Homefeed=()=>{
         })
         .then(res=>res.json())
         .then(res=> fetchHomeFeed())
+        .catch(err=>setError(true))
     }
 
     let charlength=maxCharacterLength-value.length;
     //console.log(homefeed);
 
     return(
-        <Main>
+        <>
+        {homefeed ? <Main>
             { currentUser && <Header>
                 <Form id="input-form" onSubmit={handleSubmit}>
                     <div>
@@ -67,8 +73,14 @@ const Homefeed=()=>{
                         numRetweets={tweets.numRetweets}
                     />
                 )
-            })}</div> : "Loading"}
-    </Main>
+            })}</div> : <LoadingSpinner />}
+    </Main> 
+    : (status==="loading") 
+    ? <LoadingSpinner /> 
+    : error 
+    ? <ErrorPage/> 
+    : null}
+    </>
     )
 };
 

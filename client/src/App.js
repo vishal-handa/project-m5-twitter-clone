@@ -14,9 +14,13 @@ import Notifications from "./components/Notifications";
 import Bookmarks from "./components/Bookmarks";
 import Tweetdetails from "./components/TweetDetails";
 import Sidebar from "./components/Sidebar";
+import ErrorPage from "./components/ErrorPage";
+import LoadingSpinner from "./components/LoadingSpinner";
+import { CurrentUserContext } from "./components/CurrentUserContext";
 
 
 const App=()=>{
+  const { error, status }=React.useContext(CurrentUserContext);
   useEffect(()=>{
     document.title="Critter || Meow away!";
   },[])
