@@ -143,6 +143,10 @@ const Button=styled.button`
     &:hover{
         cursor:pointer;
     }
+    &:disabled{
+        cursor: not-allowed;
+        background: gray;
+    }
 `;
 
 export default Homefeed;

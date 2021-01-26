@@ -4,6 +4,7 @@ import GlobalStyles from './Globalstyles';
 import { FaRegComment, FaRetweet, FaRegHeart } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 import COLORS from "./constants";
+import ErrorPage from './ErrorPage';
 
 const TweetActions=({isLiked,
     isRetweeted,
@@ -13,7 +14,8 @@ const TweetActions=({isLiked,
         const [tweetLiked, setTweetLiked]=useState(isLiked);
         const [numOfLikes, setNumOfLikes]=useState(numLikes);
         const [tweetRetweeted, setTweetRetweeted]=useState(isRetweeted);
-        const [numOfRetweets, setNumOfRetweets]=useState(numRetweets)
+        const [numOfRetweets, setNumOfRetweets]=useState(numRetweets);
+        const [error, setError]=useState(false);
         const handleLike=()=>{
             if(tweetLiked){
                 setTweetLiked(!tweetLiked);
@@ -33,7 +35,7 @@ const TweetActions=({isLiked,
             })
             .then(res=>res.json())
             .then(res=>console.log(res))
-            .catch(err=>console.log(err));
+            .catch(err=>setError(true));
         };
 
         const handleRetweet=()=>{
@@ -55,7 +57,7 @@ const TweetActions=({isLiked,
             })
             .then(res=>res.json())
             .then(data=>console.log(data))
-            .catch(err=>console.log(err));
+            .catch(err=>setError(true));
         };
         return(
             <Icons>
@@ -64,13 +66,13 @@ const TweetActions=({isLiked,
                 </Button>
                 
                 <Button onClick={handleRetweet}>
-                    <FaRetweet fill={isLiked ? "red" : ""} />
-                    {numOfRetweets>0 ? <span>{"   "}{numOfRetweets}</span> : <span>{" "}</span>}
+                    <FaRetweet fill={numOfRetweets>0 ? "#19cf86" : null} />
+                    {numOfRetweets>0 ? <span>{"   "}{numOfRetweets}</span> : <span>{"   "}</span>}
                 </Button>
                 
                 <Button onClick={handleLike}>
-                    <FaRegHeart />
-                    {numOfLikes>0 ? <span>{"   "}{numOfLikes}</span> : <span>{" "}</span>}
+                    <FaRegHeart fill={numOfLikes>0 ? "red" : null}/>
+                    {numOfLikes>0 ? <span>{"   "}{numOfLikes}</span> : <span>{"  "}</span>}
                 </Button>
                 
                 <Button>
