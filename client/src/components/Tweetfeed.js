@@ -46,7 +46,14 @@ const Tweetfeed=({
                                 {" "}@{authorHandle}
                             </Handle>
                         <span> - {newTime}</span>
-                        <div  onClick={()=>handleclick()}>
+                        <div   
+                            onClick={()=>handleclick()}
+                            onKeyDown={(ev) => {
+                                if (ev.key === "Space" || ev.key === "Enter") {
+                                    handleclick();
+                                }
+                                }}
+                        >
                             <Tweet>{status}</Tweet>
                             {media && <Media src={media} alt="Media"/>}
                         </div>
